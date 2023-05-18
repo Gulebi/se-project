@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="../../styles/confirm_appointment.css" />
+        <title>Confirm appointment</title>
+    </head>
+    <body>
+        <div class="container">
+
+            <div id="table-block">
+                <h2 id="main-title">Confirm appointment</h2>
+                <table style="width: 100%">
+                    <tr>
+                        <th>Requests</th>
+                        <th>Confirm</th>
+                        <th>Reject</th>
+
+                        {% for appointment in appointments %}
+                    </tr>
+
+                    <tr>
+                        <td>{{ appointment.patient_name }}, {{ appointment.date }}, {{ appointment.time }}</td>
+                        <td>
+                            <a href="{% url 'confirm-request' appointment.doctor_id appointment.date appointment.timeslot %}">Confirm</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'delete-preappointment' appointment.doctor_id appointment.date appointment.timeslot %}">Reject</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        {% endfor %}
+                    </tr>
+                </table>
+
+                <div class="btn-block">
+                    <button class="btn back-btn"><a href="/adminpage">Back</a></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

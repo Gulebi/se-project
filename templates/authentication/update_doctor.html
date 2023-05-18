@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="../../styles/update_doctor.css" />
+        <title>Patient</title>
+    </head>
+    <body>
+        <div class="container">
+            <div id="update-block">
+                <h3>Update/Delete Doctor</h3>
+                <img src="{{ doctor.photo.url }}" />
+
+                <form id="form" action="" method="POST">
+                    {% csrf_token %} {{ form.as_p }}
+
+                    <div class="btn-block">
+                        <button type="submit" class="btn">Update</button>
+
+                        <button type="submit" class="btn delete-btn">
+                            <a href="{% url 'delete-doctor' doctor.id_number %}">Delete</a>
+                        </button>
+                    </div>
+                </form>
+
+                <button class="btn back-btn"><a href="/adminpage">Back</a></button>
+            </div>
+        </div>
+    </body>
+</html>

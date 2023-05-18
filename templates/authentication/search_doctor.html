@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../styles/search_doctor.css">
+        <title>Search Results</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="search-block">
+                <h3>Results of search</h3>
+                {% if searched %}
+                    {% if doctors %}
+                        <h4>Doctor you searched for</h4>
+                        {% for doctor in doctors %}
+                            <a href="specialization/#{{ doctor.first_name }}">{{ doctor.first_name }} {{ doctor.last_name }}</a>
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if specializations %}
+                        {% for specialization in specializations %}
+                            <h4>Our {{ specialization }}s are:</h4>
+                            {% for doc in hold_doctors %}
+                                {% if doc.specialization_details_id.id == specialization.id %}
+                                    <a href="specialization/#{{ specialization }}">{{ doc }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                {% else %}
+                    <h1>Nothing was searched</h1>
+                {% endif %}
+                <div class="btn-block">
+                    <button class="btn back-btn"><a href="{% url 'appointment' %}">Back</a></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="../../styles/signin.css" />
+        <title>Signin</title>
+    </head>
+    <body>
+        {% if messages %} 
+            {% for message in messages %}
+                <script>
+                    alert("{{ message }}");
+                </script>
+            {% endfor %} 
+        {% endif %}
+
+        <div class="container">
+            <div class="sign-in-block">
+                <h3 id="sign-in-title">Sign in</h3>
+                <form action="" method="POST" class="form">
+                    {% csrf_token %}
+
+                    <div class="form-row">
+                        <label for="username" class="label">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            class="input"
+                            name="username"
+                            placeholder="Enter your Username"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-row">
+                        <label for="password" class="label">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            class="input"
+                            name="password"
+                            placeholder="Enter your First Password"
+                            required
+                        />
+                    </div>
+
+                    <button type="submit" class="btn">Sign in</button>
+                </form>
+                <div class="btn-block">
+                    <button class="btn back-btn"><a href="{% url 'home' %}">Back</a></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

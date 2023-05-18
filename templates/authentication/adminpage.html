@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="../../styles/adminpage.css" />
+        <title>Admin page</title>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div id="header-left-side">
+                    <h1 id="header-title">Hospital System</h1>
+                </div>
+                <div id="header-right-side">
+                    <div id="tabs-bar">
+                        <a href="{% url 'home' %}">Home Page</a>
+                        <p class="about-us" id="about-us-header">About Us</p>
+                        <p class="contacts" id="contacts-header">Contacts</p>
+                        <a href="{% url 'specialization' %}">Specialists</a>
+                        <a href="{% url 'appointment' %}">Search</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'adminpage' %}">Admin Page</a>
+                        {% endif %}
+                    </div>
+                    <div id="header-sing-in-block">
+                        {% if user.is_authenticated == False %}
+                        <button type="submit" id="header-btn" class="btn"><a href="/signin">Sign In</a></button>
+                        {% endif %} {% if user.is_authenticated %}
+                        <button type="submit" id="header-btn" class="btn"><a href="/signout">Sign Out</a></button>
+                        {% endif %}
+                    </div>
+                </div>
+            </header> 
+            <main>
+                <div class="btn-block block">
+                    <button type="submit" class="btn"><a href="/patient">Register Patient</a></button>
+                    <button type="submit" class="btn"><a href="/doctor">Register a Doctor</a></button>
+                    <button type="submit" class="btn">
+                        <a href="{% url 'confirm-appointment' %}">Approve Appointments</a>
+                    </button>
+                </div>
+
+                <div id="tables-block">
+                    <div id="patients-table-block" class="block">
+                        <h2>Patients Table</h2>
+
+                        <table style="width: 100%">
+                            <tr>
+                                <th>Name</th>
+                                <th>IIN</th>
+                                <th>Date of Birth</th>
+                                <th>Blood Type</th>
+                                <th>Emergency Contact</th>
+                                <th>Telephone Number</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Martial Status</th>
+                                <th>Registration Date</th>
+                            </tr>
+                            {% for patient in patients %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'update-patient' patient.id_number %}"
+                                        >{{ patient.user.first_name }} {{ patient.user.last_name }}</a
+                                    >
+                                </td>
+                                <td>{{ patient.iin_number }}</td>
+                                <td>{{ patient.date_of_birth }}</td>
+                                <td>{{ patient.blood_group }}</td>
+                                <td>{{ patient.emergency_contact_number }}</td>
+                                <td>{{ patient.contact_number }}</td>
+                                <td>{{ patient.email }}</td>
+                                <td>{{ patient.address }}</td>
+                                <td>{{ patient.martial_status }}</td>
+                                <td>{{ patient.registration_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+
+                    <div id="doctors-table-block" class="block">
+                        <h2>Doctors Table</h2>
+
+                        <table style="width: 100%">
+                            <tr>
+                                <th>Name</th>
+                                <th>IIN</th>
+                                <th>Date of Birth</th>
+                                <th>Telephone Number</th>
+                                <th>Department ID</th>
+                                <th>Specialization Details ID</th>
+                                <th>Experience in Years</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <!--<th>Schedule Details</th> -->
+                                <th>Degree of Education</th>
+                                <th>Rating</th>
+                                <th>Address</th>
+                                <!--<th>Photo</th>-->
+                            </tr>
+                            {% for doctor in doctors %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'update-doctor' doctor.id_number %}"
+                                        >{{ doctor.user.first_name }} {{ doctor.user.last_name }}</a
+                                    >
+                                </td>
+                                <td>{{ doctor.iin_number }}</td>
+                                <td>{{ doctor.date_of_birth }}</td>
+                                <td>{{ doctor.contact_number }}</td>
+                                <td>{{ doctor.department_id }}</td>
+                                <td>{{ doctor.specialization_details_id }}</td>
+                                <td>{{ doctor.experience }}</td>
+                                <td>{{ doctor.category }}</td>
+                                <td>{{ doctor.price }}</td>
+                                <!--<td>{{ doctor.schedule_details }}</td>-->
+                                <td>{{ doctor.education }}</td>
+                                <td>{{ doctor.rating }}</td>
+                                <td>{{ doctor.address }}</td>
+                                <!--<td><img src="{{ doctor.photo.url }}"/></td>-->
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </main>
+
+            <footer>
+                <div id="footer-icons-block">
+                    <a href="" class="footer-icon">
+                        <img src="../../images/github-icon.png" alt="Github Icon" width="23px" />
+                        <a href=""></a>
+                    </a>
+                    <a href="" class="footer-icon">
+                        <img src="../../images/instagram-icon.png" alt="Instagram Icon" width="23px" />
+                        <a href=""></a>
+                    </a>
+                    <a href="" class="footer-icon">
+                        <img src="../../images/facebook-icon.png" alt="Facebook Icon" width="23px" />
+                    </a>
+                </div>
+                <div id="footer-links-block">
+                    <p class="about-us" id="about-us-footer">About Us</p>
+                    <p>•</p>
+                    <p class="contacts" id="contacts-footer">Contacts</p>
+                    <p>•</p>
+                    <a href="{% url 'home' %}">Home Page</a>
+                </div>
+                <div id="footer-copyright-block">
+                    <p>© 2022 Hospital System</p>
+                </div>
+            </footer>
+        </div>
+
+        <div id="about-us-backdrop">
+            <div id="about-us-popup">
+                <h2>About Us</h2>
+                <p>
+                    Our reputation for outstanding care and family-like atmosphere, together with advanced medical
+                    technology and facilities ensures we attract leading consultants and specialists from the industry
+                    to work with us. All our clinicians are board-certified and come with very high credentials within
+                    their field of speciality. Many of our consultant doctors are internationally recognised as well.
+                </p>
+            </div>
+        </div>
+
+        <div id="contacts-backdrop">
+            <div id="contacts-popup">
+                <h2>Contacts</h2>
+                <p>Chief Physician: +7 701 239 5627</p>
+                <p>Deputy Chief Physician: +7 701 239 5627</p>
+                <p>Admin: +7 701 239 5627</p>
+            </div>
+        </div>
+
+        <script>
+            let aboutUsOpened = false;
+            let contactsOpened = false;
+
+            window.addEventListener("click", (event) => {
+                if (
+                    (document.querySelector("#about-us-header").contains(event.target) && !aboutUsOpened) ||
+                    (document.querySelector("#about-us-footer").contains(event.target) && !aboutUsOpened)
+                ) {
+
+                    document.querySelector("#about-us-popup").style.display = "flex";
+                    document.querySelector("#about-us-backdrop").style.display = "block";
+                    document.querySelector("body").style.overflow = "hidden";
+                    aboutUsOpened = true;
+                    return;
+                } else {
+
+                    document.querySelector("#about-us-popup").style.display = "none";
+                    document.querySelector("#about-us-backdrop").style.display = "none";
+                    document.querySelector("body").style.overflow = "auto";
+                    aboutUsOpened = false;
+                }
+
+                if (
+                    (document.querySelector("#contacts-header").contains(event.target) && !contactsOpened) ||
+                    (document.querySelector("#contacts-footer").contains(event.target) && !contactsOpened)
+                ) {
+
+                    document.querySelector("#contacts-popup").style.display = "flex";
+                    document.querySelector("#contacts-backdrop").style.display = "block";
+                    document.querySelector("body").style.overflow = "hidden";
+                    contactsOpened = true;
+                    return;
+                } else {
+
+                    document.querySelector("#contacts-popup").style.display = "none";
+                    document.querySelector("#contacts-backdrop").style.display = "none";
+                    document.querySelector("body").style.overflow = "auto";
+                    contactsOpened = false;
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="../../styles/patient.css" />
+        <title>Patient Registration</title>
+    </head>
+    <body>
+        <div class="container">
+            <div id="reg-block">
+                <h3>Register the patient</h3>
+
+                <form id="form" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field patientForm.date_of_birth class="form-control" placeholder="Date of birth" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field patientForm.iin_number class="form-control" placeholder="IIN" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field patientForm.blood_group required="required" class="form-control" placeholder="Blood type" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field patientForm.emergency_contact_number required="required" class="form-control" placeholder="Emergency contact number" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field patientForm.contact_number required="required" class="form-control" placeholder="Contact number" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field patientForm.email required="required" class="form-control" placeholder="Email" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field patientForm.address required="required" class="form-control" placeholder="Address" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field patientForm.martial_status required="required" class="form-control" placeholder="Martial status" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field userForm.username class="form-control" placeholder="Username" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field userForm.password class="form-control" placeholder="Password" %}
+                    </div>
+
+                    <div class="btn-block">
+                        <button type="submit" class="btn">Register</button>
+                    </div>
+                </form>
+                <button class="btn back-btn"><a href="/adminpage">Back</a></button>
+            </div>
+        </div>
+    </body>
+</html>

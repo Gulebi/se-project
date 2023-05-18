@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../styles/personal_page.css">
+        <title>Personal Page</title>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div id="header-left-side">
+                    <h1 id="header-title">Hospital System</h1>
+                </div>
+                <div id="header-right-side">
+                    <div id="tabs-bar">
+                        <a href="{% url 'home' %}">Home Page</a>
+                        <p class="about-us" id="about-us-header">About Us</p>
+                        <p class="contacts" id="contacts-header">Contacts</p>
+                        <a href="{% url 'specialization' %}">Specialists</a>
+                        <a href="{% url 'appointment' %}">Search</a>
+                        {% if user.is_superuser %}
+                            <a href="{% url 'adminpage' %}">Admin Page</a>
+                        {% elif user.is_authenticated %}
+                            <a href="{% url 'personal-page' user.username %}">Personal Page</a>
+                        {% endif %}
+                    </div>
+                    <div id="header-sing-in-block">
+                        {% if user.is_authenticated == False %}
+                        <button type="submit" id="header-btn" class="btn"><a href="/signin">Sign In</a></button>
+                        {% endif %} {% if user.is_authenticated %}
+                        <button type="submit" id="header-btn" class="btn"><a href="/signout">Sign Out</a></button>
+                        {% endif %}
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div id="personal-block">
+                    <h3>Personal Info</h3>
+                    <div class="info-block">
+                        {% if user.patient.date_of_birth %}
+                            <div class="text-block">
+                                <div class="personal-row">
+                                    <p class="row-key">First Name:</p>
+                                    <p class="row-value">{{ user.first_name }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Last Name:</p>
+                                    <p class="row-value">{{ user.last_name }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">DoB:</p>
+                                    <p class="row-value">{{ user.patient.date_of_birth }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">IIN:</p>
+                                    <p class="row-value">{{ user.patient.iin_number }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Blood Group:</p>
+                                    <p class="row-value">{{ user.patient.blood_group }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Emergency Contact:</p>
+                                    <p class="row-value">{{ user.patient.emergency_contact_number }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Contact number:</p>
+                                    <p class="row-value">{{ user.patient.contact_number }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Email:</p>
+                                    <p class="row-value">{{ user.patient.email }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Address:</p>
+                                    <p class="row-value">{{ user.patient.address }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Martial Status:</p>
+                                    <p class="row-value">{{ user.patient.martial_status }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Registration date:</p>
+                                    <p class="row-value">{{ user.patient.registration_date }}</p>
+                                </div>
+                            </div>
+                        {% else %}
+                            <image class="personal-image" src="{{ user.doctor.photo.url }}">
+                            <div class="text-block">
+                                <div class="personal-row">
+                                    <p class="row-key">First Name:</p>
+                                    <p class="row-value">{{ user.first_name }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Last Name:</p>
+                                    <p class="row-value">{{ user.last_name }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">DoB:</p>
+                                    <p class="row-value">{{ user.doctor.date_of_birth }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">IIN:</p>
+                                    <p class="row-value">{{ user.doctor.iin_number }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Department id:</p>
+                                    <p class="row-value">{{ user.doctor.department_id }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Specialization id:</p>
+                                    <p class="row-value">{{ user.doctor.specialization_details_id }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Experience:</p>
+                                    <p class="row-value">{{ user.doctor.experience }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Category:</p>
+                                    <p class="row-value">{{ user.doctor.category }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Price:</p>
+                                    <p class="row-value">{{ user.doctor.price }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Education:</p>
+                                    <p class="row-value">{{ user.doctor.education }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Rating:</p>
+                                    <p class="row-value">{{ user.doctor.rating }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Contact number:</p>
+                                    <p class="row-value">{{ user.doctor.contact_number }}</p>
+                                </div>
+                                <div class="personal-row">
+                                    <p class="row-key">Address:</p>
+                                    <p class="row-value">{{ user.doctor.address }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </main>
+            <footer>
+                <div id="footer-icons-block">
+                    <a href="" class="footer-icon">
+                        <img src="../../images/github-icon.png" alt="Github Icon" width="23px" />
+                        <a href=""></a>
+                    </a>
+                    <a href="" class="footer-icon">
+                        <img src="../../images/instagram-icon.png" alt="Instagram Icon" width="23px" />
+                        <a href=""></a>
+                    </a>
+                    <a href="" class="footer-icon">
+                        <img src="../../images/facebook-icon.png" alt="Facebook Icon" width="23px" />
+                    </a>
+                </div>
+                <div id="footer-links-block">
+                    <p class="about-us" id="about-us-footer">About Us</p>
+                    <p>•</p>
+                    <p class="contacts" id="contacts-footer">Contacts</p>
+                    <p>•</p>
+                    <a href="{% url 'home' %}">Home Page</a>
+                </div>
+                <div id="footer-copyright-block">
+                    <p>© 2022 Hospital System</p>
+                </div>
+            </footer>
+        </div>
+
+        <div id="about-us-backdrop">
+            <div id="about-us-popup">
+                <h2>About Us</h2>
+                <p>
+                    Our reputation for outstanding care and family-like atmosphere, together with advanced medical
+                    technology and facilities ensures we attract leading consultants and specialists from the industry
+                    to work with us. All our clinicians are board-certified and come with very high credentials within
+                    their field of speciality. Many of our consultant doctors are internationally recognised as well.
+                </p>
+            </div>
+        </div>
+
+        <div id="contacts-backdrop">
+            <div id="contacts-popup">
+                <h2>Contacts</h2>
+                <p>Chief Physician: +7 701 239 5627</p>
+                <p>Deputy Chief Physician: +7 701 239 5627</p>
+                <p>Admin: +7 701 239 5627</p>
+            </div>
+        </div>
+
+        <script>
+            let aboutUsOpened = false;
+            let contactsOpened = false;
+
+            window.addEventListener("click", (event) => {
+                if (
+                    (document.querySelector("#about-us-header").contains(event.target) && !aboutUsOpened) ||
+                    (document.querySelector("#about-us-footer").contains(event.target) && !aboutUsOpened)
+                ) {
+
+                    document.querySelector("#about-us-popup").style.display = "flex";
+                    document.querySelector("#about-us-backdrop").style.display = "block";
+                    aboutUsOpened = true;
+                    return;
+                } else {
+
+                    document.querySelector("#about-us-popup").style.display = "none";
+                    document.querySelector("#about-us-backdrop").style.display = "none";
+                    aboutUsOpened = false;
+                }
+
+                if (
+                    (document.querySelector("#contacts-header").contains(event.target) && !contactsOpened) ||
+                    (document.querySelector("#contacts-footer").contains(event.target) && !contactsOpened)
+                ) {
+
+                    document.querySelector("#contacts-popup").style.display = "flex";
+                    document.querySelector("#contacts-backdrop").style.display = "block";
+                    contactsOpened = true;
+                    return;
+                } else {
+
+                    document.querySelector("#contacts-popup").style.display = "none";
+                    document.querySelector("#contacts-backdrop").style.display = "none";
+                    contactsOpened = false;
+                }
+            });
+        </script>
+    </body>
+</html>
+

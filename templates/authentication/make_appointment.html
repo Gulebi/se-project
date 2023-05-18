@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="../../styles/make_appointment.css" />
+        <title>Appointment</title>
+    </head>
+    <body>
+        {% if messages %} {% for message in messages %}
+        <script>
+            alert("{{ message }}");
+        </script>
+        {% endfor %} {% endif %}
+
+        <div class="container">
+            <div id="appointment-block">
+                <h3 id="appointment-block-title">Appointment Form</h3>
+                <form id="form" method="POST" action="">
+                    {% csrf_token %}
+
+                    <select name="doctor" class="input" required>
+                        <option value="">----</option>
+                        {% for doctor in doctors %}
+                        <option value="{{ doctor.id_number }}">{{ doctor }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="date" name="date" class="input" required placeholder="YYYY-MM-DD" />
+
+                    <select name="timeslot" class="input" required>
+                        <option value="">----</option>
+                        <option value="0">09:00 – 09:30</option>
+                        <option value="1">10:00 – 10:30</option>
+                        <option value="2">11:00 – 11:30</option>
+                        <option value="3">12:00 – 12:30</option>
+                        <option value="4">13:00 – 13:30</option>
+                        <option value="5">14:00 – 14:30</option>
+                        <option value="6">15:00 – 15:30</option>
+                        <option value="7">16:00 – 16:30</option>
+                        <option value="8">17:00 – 17:30</option>
+                    </select>
+
+                    <input type="text" name="name" class="input" value = "{{ user.first_name }}" placeholder="Name" />
+                    <input type="text" name="phone" class="input" value = "{{ user.patient.contact_number }}"  placeholder="Phone number" />
+                    <input type="email" name="email" class="input" value = "{{ user.patient.email }}"  placeholder="Email address" />
+
+                    <button type="submit" class="btn">Make Appointment</button>
+                </form>
+
+                <div class="btn-block">
+                    <button class="btn back-btn"><a href="{% url 'home' %}">Back</a></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
